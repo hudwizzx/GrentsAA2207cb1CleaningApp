@@ -1,0 +1,86 @@
+﻿<Window x:Class="CleaningApp.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:CleaningApp.ViewModel"
+        Title="Cleaning Service" Height="600" Width="1000">
+
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
+
+    <Grid>
+        <TabControl>
+            <!-- Вкладка для регистрации заявки -->
+            <TabItem Header="Добавление заявки">
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Text="Адрес помещения:"/>
+                        <TextBox x:Name="AddressTextBox"/>
+
+                        <TextBlock Text="Имя заявителя:"/>
+                        <TextBox x:Name="ClientNameTextBox"/>
+
+                        <TextBlock Text="Телефон заявителя:"/>
+                        <TextBox x:Name="PhoneTextBox"/>
+
+                        <TextBlock Text="Тип помещения:"/>
+                        <ComboBox x:Name="RoomTypeComboBox">
+                            <ComboBoxItem>Квартира</ComboBoxItem>
+                            <ComboBoxItem>Офис</ComboBoxItem>
+                            <ComboBoxItem>Дом</ComboBoxItem>
+                        </ComboBox>
+
+                        <TextBlock Text="Площадь помещения (м²):"/>
+                        <TextBox x:Name="RoomAreaTextBox"/>
+
+                        <TextBlock Text="Тип уборки:"/>
+                        <ComboBox x:Name="CleaningTypeComboBox">
+                            <ComboBoxItem>Стандартная</ComboBoxItem>
+                            <ComboBoxItem>Генеральная</ComboBoxItem>
+                            <ComboBoxItem>После ремонта</ComboBoxItem>
+                        </ComboBox>
+
+                        <TextBlock Text="Приоритет заявки:"/>
+                        <ComboBox x:Name="PriorityComboBox">
+                            <ComboBoxItem>Низкий</ComboBoxItem>
+                            <ComboBoxItem>Средний</ComboBoxItem>
+                            <ComboBoxItem>Высокий</ComboBoxItem>
+                        </ComboBox>
+
+                        <Button Content="Добавить заявку" Click="AddOrder_Click"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- Вкладка для обработки и назначения заявок -->
+            <TabItem Header="Список заявок">
+                <Grid>
+                    <StackPanel>
+                        <ListView x:Name="OrdersListView">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}" Width="40"/>
+                                    <GridViewColumn Header="Адрес" DisplayMemberBinding="{Binding Address}" Width="150"/>
+                                    <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding ClientName}" Width="100"/>
+                                    <GridViewColumn Header="Телефон" DisplayMemberBinding="{Binding Phone}" Width="100"/>
+                                    <GridViewColumn Header="Тип помещения" DisplayMemberBinding="{Binding RoomType}" Width="100"/>
+                                    <GridViewColumn Header="Площадь" DisplayMemberBinding="{Binding RoomArea}" Width="80"/>
+                                    <GridViewColumn Header="Тип уборки" DisplayMemberBinding="{Binding CleaningType}" Width="120"/>
+                                    <GridViewColumn Header="Приоритет" DisplayMemberBinding="{Binding Priority}" Width="100"/>
+                                    <GridViewColumn Header="Исполнитель" DisplayMemberBinding="{Binding Executor}" Width="120"/>
+                                    <GridViewColumn Header="Статус" DisplayMemberBinding="{Binding Status}" Width="100"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <TextBlock Text="Назначить исполнителя:" VerticalAlignment="Center"/>
+                            <TextBox x:Name="ExecutorTextBox" Width="150" Margin="10,0,0,0"/>
+                            <Button Content="Назначить" Click="AssignExecutor_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
